@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "arduino-db-ui", "arduino-db-ui\arduino-db-ui.csproj", "{248DB5F2-1F4D-42BA-9671-526F099DADEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{248DB5F2-1F4D-42BA-9671-526F099DADEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{248DB5F2-1F4D-42BA-9671-526F099DADEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{248DB5F2-1F4D-42BA-9671-526F099DADEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{248DB5F2-1F4D-42BA-9671-526F099DADEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

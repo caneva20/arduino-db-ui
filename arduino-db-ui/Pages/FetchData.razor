@@ -1,0 +1,55 @@
+﻿@page "/"
+@inject HttpClient Http
+
+<PageTitle>Transit statistics</PageTitle>
+
+<h1>Transit statistics</h1>
+
+@if (statistics == null) {
+    <p>
+        <em>Loading...</em>
+    </p>
+} else {
+    <FluentDataGrid id="manualGrid" GenerateHeader=GenerateHeaderOptions.None GridTemplateColumns="1fr 2fr" TItem=string>
+        <FluentDataGridRow TItem=string RowType="DataGridRowType.Header">
+            <FluentDataGridCell GridColumn=1 CellType="DataGridCellType.ColumnHeader">Id</FluentDataGridCell>
+            <FluentDataGridCell GridColumn=2 CellType="DataGridCellType.ColumnHeader">Date</FluentDataGridCell>
+        </FluentDataGridRow>
+
+        @foreach (var forecast in statistics.OrderByDescending(x => x.Date)) {
+            <FluentDataGridRow TItem=string>
+                <FluentDataGridCell GridColumn=1>@forecast.Id.ToString().ToUpper()</FluentDataGridCell>
+                <FluentDataGridCell GridColumn=2>@forecast.Date.ToString("F")</FluentDataGridCell>
+            </FluentDataGridRow>
+        }
+
+    </FluentDataGrid>
+}
+
+@code {
+    private SignalStatistics[]? statistics;
+
+    protected override async Task OnInitializedAsync() {
+        await UpdateStatistics();
+        StartPeriodicUpdate();
+    }
+
+    private async Task UpdateStatistics() {
+        Console.WriteLine($"Updating statistics");
+        
+        statistics = await Http.GetFromJsonAsync<SignalStatistics[]>("https://uvv-arduino.azurewebsites.net/statistics");
+    }
+
+    private void StartPeriodicUpdate() {
+        new Timer(async _ => {
+            await UpdateStatistics();
+            
+            StateHasChanged();
+        }, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(333));
+    }
+
+    public class SignalStatistics {
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public DateTime Date { get; set; }
+    }
+}
