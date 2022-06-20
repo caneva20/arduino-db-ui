@@ -33,10 +33,6 @@ jobs:
       # publishes Blazor project to the release-folder
       - name: Publish .NET Core Project
         run: dotnet publish arduino-db-ui/arduino-db-ui.csproj -c Release -o release --nologo
-        
-      # changes the base-tag in index.html from '/' to 'BlazorGitHubPagesDemo' to match GitHub Pages repository subdirectory
-      - name: Change base-tag in index.html from / to BlazorGitHubPagesDemo
-        run: sed -i 's/<base href="\/" \/>/<base href="\/arduino-db-ui\/" \/>/g' release/wwwroot/index.html
       
       # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
       - name: Add .nojekyll file
